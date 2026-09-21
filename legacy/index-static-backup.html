@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AAL Travel - Premium Travel Experience</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-blue: #0d47a1;
+      --accent-blue: #1e88e5;
+      --light-blue: #e3f2fd;
+      --gold-accent: #fbc02d;
+      --dark-text: #1a202c;
+      --light-gray: #f8f9fa;
+      --white: #ffffff;
+      --shadow: 0 4px 15px rgba(0,0,0,0.08);
+      --border-radius: 16px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
+    body { background-color: #f4f7f6; color: var(--dark-text); line-height: 1.6; padding-bottom: 70px; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; }
+    :focus-visible { outline: 3px solid var(--gold-accent); outline-offset: 2px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+      .reveal, .reveal-scale { opacity: 1 !important; transform: none !important; }
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .section-title { font-size: 1.8rem; color: var(--primary-blue); text-align: center; margin-bottom: 22px; font-weight: 700; position: relative; padding-bottom: 16px; }
+    .section-title::after { content: ''; position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 64px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, var(--accent-blue), var(--gold-accent)); }
+    .section-subtitle { text-align: center; color: #666; margin-bottom: 30px; font-size: 0.95rem; }
+    .script-text { font-family: 'Caveat', cursive; font-size: 1.8rem; color: var(--accent-blue); display: inline-block; }
+
+    /* Scroll reveal */
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .reveal-scale { opacity: 0; transform: scale(0.94); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal-scale.in-view { opacity: 1; transform: scale(1); }
+
+    /* HEADER */
+    header { position: sticky; top: 0; background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 1000; padding: 12px 20px; }
+    .header-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+    .logo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 1.2rem; color: var(--primary-blue); }
+    .logo-badge { background: var(--accent-blue); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.75rem; }
+    .header-actions { display: flex; align-items: center; gap: 15px; }
+    .lang-group { display: flex; gap: 4px; background: var(--light-blue); border-radius: 20px; padding: 3px; }
+    .lang-btn { border: none; background: none; padding: 6px 12px; border-radius: 16px; color: var(--primary-blue); font-weight: 600; font-size: 0.8rem; cursor: pointer; transition: background 0.2s ease, color 0.2s ease; }
+    .lang-btn[aria-pressed="true"] { background: var(--primary-blue); color: var(--white); }
+
+    /* HERO */
+    .hero {
+      position: relative; overflow: hidden;
+      padding: 80px 20px 56px 20px; color: var(--white); text-align: center; border-radius: 0 0 24px 24px;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+      animation: heroZoom 20s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+    .hero::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(rgba(13, 71, 161, 0.45), rgba(13, 71, 161, 0.78));
+      z-index: 1;
+    }
+    .hero > * { position: relative; z-index: 2; }
+    @keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.12); } }
+
+    .hero h1 { font-size: clamp(2.2rem, 5.5vw, 3.4rem); margin-bottom: 14px; font-weight: 700; letter-spacing: -0.5px; max-width: 16ch; margin-left: auto; margin-right: auto; animation: fadeInUp 0.8s ease both; }
+    .hero p { font-size: 1.05rem; margin-bottom: 34px; opacity: 0.92; max-width: 42ch; margin-left: auto; margin-right: auto; animation: fadeInUp 0.8s ease 0.15s both; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Glassmorphism search widget */
+    .search-widget {
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: var(--border-radius);
+      padding: 22px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+      color: var(--white);
+      max-width: 820px;
+      margin: 0 auto;
+      animation: fadeInUp 0.8s ease 0.3s both;
+    }
+    .search-tabs { display: flex; gap: 8px; margin-bottom: 16px; overflow-x: auto; padding-bottom: 5px; }
+    .tab-btn { padding: 8px 16px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.12); border-radius: 20px; font-weight: 600; font-size: 0.85rem; cursor: pointer; white-space: nowrap; color: var(--white); transition: background 0.2s ease, transform 0.2s ease; }
+    .tab-btn:hover { transform: translateY(-2px); }
+    .tab-btn.active { background: var(--gold-accent); color: var(--dark-text); border-color: var(--gold-accent); }
+    .search-fields { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    @media (min-width: 768px) { .search-fields { grid-template-columns: 2fr 1fr 1fr 1fr; } }
+    .input-group input, .input-group select { width: 100%; padding: 12px; border: 1px solid rgba(255,255,255,0.4); border-radius: 10px; font-size: 0.9rem; outline: none; background: rgba(255,255,255,0.92); color: var(--dark-text); }
+    .btn-search { background: var(--gold-accent); color: var(--dark-text); border: none; padding: 12px; border-radius: 10px; font-weight: 700; cursor: pointer; width: 100%; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .btn-search:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.25); }
+    .search-note { font-size: 0.78rem; color: rgba(255,255,255,0.85); margin-top: 12px; text-align: left; }
+
+    .scroll-hint { margin-top: 30px; color: rgba(255,255,255,0.85); font-size: 1.3rem; animation: bounceDown 2s ease-in-out infinite; }
+    @keyframes bounceDown { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+    /* FULL-WIDTH FEATURE BANNERS */
+    .feature-banner { position: relative; min-height: 420px; border-radius: var(--border-radius); overflow: hidden; margin-bottom: 22px; display: flex; align-items: flex-end; }
+    .feature-banner-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+    .feature-banner:hover .feature-banner-img { transform: scale(1.06); }
+    .feature-banner-fallback { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue)); color: var(--gold-accent); font-size: 3.4rem; }
+    .feature-banner-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,37,64,0) 35%, rgba(10,37,64,0.88) 100%); }
+    .feature-banner-content { position: relative; z-index: 2; padding: 32px; color: var(--white); width: 100%; }
+    .feature-banner-content h3 { font-size: 1.6rem; margin-bottom: 8px; }
+    .feature-banner-content p { font-size: 0.95rem; opacity: 0.92; max-width: 48ch; margin-bottom: 16px; }
+    .feature-banner-meta { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+    .feature-banner-meta .price { font-size: 1.25rem; font-weight: 700; }
+    .feature-banner-meta .price span { font-size: 0.75rem; font-weight: 400; opacity: 0.85; }
+    .btn-banner { background: var(--gold-accent); color: var(--dark-text); padding: 11px 22px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; border: none; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .btn-banner:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.25); }
+    .feature-banner .card-badge { top: 20px; right: 20px; }
+    @media (max-width: 600px) { .feature-banner { min-height: 320px; } .feature-banner-content h3 { font-size: 1.3rem; } }
+
+    /* CAROUSELS */
+    .section-padding { padding: 40px 0; }
+    .subsection-title { font-size: 1.2rem; color: var(--primary-blue); font-weight: 700; margin: 36px 0 4px; }
+    .subsection-subtitle { color: #666; font-size: 0.88rem; margin-bottom: 8px; }
+    .carousel-container { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x proximity; padding: 10px 20px 20px 20px; -webkit-overflow-scrolling: touch; }
+    .carousel-container::-webkit-scrollbar { display: none; }
+
+    .card { min-width: 270px; max-width: 280px; background: var(--white); border-radius: var(--border-radius); box-shadow: var(--shadow); scroll-snap-align: start; overflow: hidden; position: relative; flex-shrink: 0; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 14px 32px rgba(0,0,0,0.16); }
+    .card-img, .card-img-fallback { height: 190px; width: 100%; object-fit: cover; }
+    .card-img { transition: transform 0.5s ease; }
+    .card:hover .card-img { transform: scale(1.08); }
+    .card-img-fallback { display: none; background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue)); align-items: center; justify-content: center; color: var(--gold-accent); font-size: 2.4rem; }
+    .card-badge { position: absolute; top: 15px; right: 15px; background: var(--gold-accent); color: #000; font-weight: 700; font-size: 0.72rem; padding: 4px 10px; border-radius: 12px; z-index: 2; }
+    .card-body { padding: 18px; }
+    .card-title { font-size: 1.05rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 5px; }
+    .card-subtitle { font-size: 0.83rem; color: #666; margin-bottom: 12px; min-height: 2.6em; }
+    .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding-top: 12px; border-top: 1px solid #f0f0f0; }
+    .card-price { font-size: 1.05rem; font-weight: 700; color: var(--primary-blue); }
+    .card-price span { font-size: 0.72rem; color: #888; font-weight: 400; }
+    .btn-card { background: var(--light-blue); color: var(--primary-blue); padding: 8px 14px; border-radius: 8px; font-weight: 600; font-size: 0.8rem; border: none; cursor: pointer; transition: transform 0.2s ease, background 0.2s ease; }
+    .btn-card:hover { transform: translateY(-2px); background: var(--gold-accent); color: var(--dark-text); }
+
+    /* NEW YEAR'S EVE DESTINATIONS COMPARISON */
+    .newyear-section { padding: 56px 0; background: var(--light-gray); }
+    .compare-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 8px; }
+    @media (max-width: 900px) { .compare-grid { grid-template-columns: 1fr; } }
+    .compare-card { background: var(--white); border-radius: var(--border-radius); box-shadow: var(--shadow); padding: 0; display: flex; flex-direction: column; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .compare-card:hover { transform: translateY(-6px); box-shadow: 0 14px 32px rgba(0,0,0,0.16); }
+    .compare-img-wrap { position: relative; height: 160px; overflow: hidden; }
+    .compare-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .compare-card:hover .compare-img { transform: scale(1.08); }
+    .compare-img-fallback { display: none; position: absolute; inset: 0; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue)); color: var(--gold-accent); font-size: 2.2rem; }
+    .compare-card-body { padding: 22px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+    .compare-badge { position: absolute; top: 12px; left: 12px; z-index: 2; background: var(--gold-accent); color: #000; font-size: 0.72rem; font-weight: 700; padding: 5px 12px; border-radius: 20px; }
+    .compare-card h3 { color: var(--primary-blue); font-size: 1.15rem; }
+    .compare-desc { font-size: 0.88rem; color: #555; }
+    .compare-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin: 4px 0; }
+    .compare-list li { font-size: 0.85rem; color: #444; display: flex; gap: 8px; align-items: flex-start; }
+    .compare-list li i { color: var(--gold-accent); margin-top: 3px; font-size: 0.8rem; }
+    .btn-compare { margin-top: auto; background: var(--primary-blue); color: var(--white); text-align: center; padding: 10px; border-radius: 8px; font-weight: 600; font-size: 0.85rem; border: none; cursor: pointer; width: 100%; transition: transform 0.2s ease, background 0.2s ease; }
+    .btn-compare:hover { transform: translateY(-2px); background: var(--accent-blue); }
+
+    /* REVIEWS */
+    .reviews-bg { background: var(--light-blue); padding: 40px 20px; }
+    .review-card { background: var(--white); border-radius: var(--border-radius); padding: 20px; box-shadow: var(--shadow); min-width: 270px; max-width: 310px; flex-shrink: 0; scroll-snap-align: start; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .review-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,0.12); }
+    .stars { color: #ffb400; margin-bottom: 10px; font-size: 0.9rem; }
+    .review-text { font-size: 0.88rem; color: #444; margin-bottom: 15px; font-style: italic; }
+    .reviewer { display: flex; align-items: center; gap: 10px; }
+    .reviewer-img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; background: var(--light-blue); }
+    .reviewer-info h4 { font-size: 0.85rem; font-weight: 700; }
+    .reviewer-info p { font-size: 0.75rem; color: #777; }
+
+    /* CONTACT */
+    .contact-section { padding: 40px 20px; max-width: 600px; margin: 0 auto; }
+    .contact-form { background: var(--white); padding: 25px; border-radius: var(--border-radius); box-shadow: var(--shadow); }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; color: #444; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 0.9rem; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--accent-blue); box-shadow: 0 0 0 3px rgba(30,136,229,0.15); }
+    .btn-submit { background: var(--primary-blue); color: var(--white); border: none; width: 100%; padding: 14px; border-radius: 10px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(13,71,161,0.3); }
+    .thanks-msg { display: none; background: #e6f4ea; color: #1e7e34; padding: 12px 16px; border-radius: 10px; font-size: 0.88rem; margin-top: 14px; }
+    .thanks-msg.show { display: block; animation: fadeInUp 0.5s ease both; }
+
+    /* CONTACT CHOICE MODAL */
+    .contact-modal-overlay {
+      position: fixed; inset: 0; background: rgba(10,37,64,0.55); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center; padding: 20px;
+      opacity: 0; pointer-events: none; transition: opacity 0.25s ease; z-index: 2000;
+    }
+    .contact-modal-overlay.show { opacity: 1; pointer-events: auto; }
+    .contact-modal {
+      background: var(--white); border-radius: var(--border-radius); padding: 32px 26px 26px; max-width: 380px; width: 100%;
+      text-align: center; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      transform: translateY(20px) scale(0.96); transition: transform 0.25s ease;
+    }
+    .contact-modal-overlay.show .contact-modal { transform: translateY(0) scale(1); }
+    .contact-modal-close { position: absolute; top: 10px; right: 12px; background: none; border: none; font-size: 1.6rem; color: #999; cursor: pointer; line-height: 1; padding: 6px; }
+    .contact-modal-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--light-blue); color: var(--primary-blue); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 14px; }
+    .contact-modal h3 { color: var(--primary-blue); font-size: 1.2rem; margin-bottom: 6px; }
+    .contact-modal-item { font-size: 0.85rem; color: #666; margin-bottom: 18px; font-weight: 600; display: none; }
+    .contact-modal-actions { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+    .modal-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 13px; border-radius: 10px; font-weight: 700; font-size: 0.95rem; border: none; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .modal-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.18); }
+    .modal-btn i { font-size: 1.1rem; }
+    .modal-btn-whatsapp { background: #25d366; color: #fff; }
+    .modal-btn-call { background: var(--primary-blue); color: #fff; }
+    .modal-form-link { background: none; border: none; color: var(--accent-blue); font-size: 0.82rem; text-decoration: underline; cursor: pointer; }
+
+    /* FLOATING WHATSAPP + MOBILE NAV */
+    .whatsapp-btn { position: fixed; bottom: 80px; right: 20px; background: #25d366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 999; border: none; cursor: pointer; animation: waPulse 2.6s ease-in-out infinite; }
+    @keyframes waPulse {
+      0%, 100% { box-shadow: 0 4px 12px rgba(0,0,0,0.2), 0 0 0 0 rgba(37,211,102,0.45); }
+      50% { box-shadow: 0 4px 12px rgba(0,0,0,0.2), 0 0 0 10px rgba(37,211,102,0); }
+    }
+    .mobile-bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eee; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 1000; }
+    .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 0.7rem; color: #777; background: none; border: none; cursor: pointer; }
+    .nav-item i { font-size: 1.2rem; margin-bottom: 2px; }
+    .nav-item.active { color: var(--primary-blue); font-weight: 600; }
+    @media (min-width: 768px) {
+      .mobile-bottom-nav { display: none; }
+      body { padding-bottom: 0; }
+      .whatsapp-btn { bottom: 30px; }
+    }
+
+    footer { background: #0a2540; color: #a0aec0; padding: 30px 20px; text-align: center; font-size: 0.8rem; }
+    footer p { margin-bottom: 10px; }
+    footer a { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <a href="#" class="logo">
+        <div class="logo-badge">AAL</div>
+        <span>AAL Travel</span>
+      </a>
+      <div class="header-actions">
+        <div class="lang-group" role="group" aria-label="Idioma / Language / Langue">
+          <button class="lang-btn" data-lang="es" aria-pressed="true">ES</button>
+          <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+          <button class="lang-btn" data-lang="fr" aria-pressed="false">FR</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1 data-i18n="hero.title">Experiencias Exclusivas en Dubái</h1>
+    <p data-i18n="hero.subtitle">Viajes a la medida, hoteles luxury y acceso VIP</p>
+
+    <div class="search-widget">
+      <div class="search-tabs">
+        <button class="tab-btn active" data-tab="packages"><i class="fa-solid fa-layer-group"></i> <span data-i18n="hero.tabs.packages">Paquetes</span></button>
+        <button class="tab-btn" data-tab="flights"><i class="fa-solid fa-plane"></i> <span data-i18n="hero.tabs.flights">Vuelos</span></button>
+        <button class="tab-btn" data-tab="hotels"><i class="fa-solid fa-hotel"></i> <span data-i18n="hero.tabs.hotels">Hoteles</span></button>
+        <button class="tab-btn" data-tab="experiences"><i class="fa-solid fa-ticket"></i> <span data-i18n="hero.tabs.experiences">Experiencias</span></button>
+      </div>
+      <div class="search-fields">
+        <div class="input-group">
+          <input type="text" id="searchDestination" data-i18n-placeholder="hero.destinationPlaceholder" placeholder="¿A dónde quieres ir? (Ej. Dubái)">
+        </div>
+        <div class="input-group">
+          <input type="date" id="searchDate">
+        </div>
+        <div class="input-group">
+          <select id="searchPax">
+            <option data-i18n="hero.pax.one">1 Pasajero</option>
+            <option data-i18n="hero.pax.two">2 Pasajeros</option>
+            <option data-i18n="hero.pax.family">Familia</option>
+          </select>
+        </div>
+        <button class="btn-search" id="searchBtn" type="button" data-i18n="hero.searchBtn">Buscar</button>
+      </div>
+      <p class="search-note" data-i18n="hero.searchNote">Te enviaremos disponibilidad y precios directo por WhatsApp o correo — sin cargos por consultar.</p>
+    </div>
+
+    <div class="scroll-hint" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></div>
+  </section>
+
+  <section class="section-padding">
+    <div class="container">
+      <h2 class="section-title reveal" data-i18n="section.experiencesTitle">Experiencias Exclusivas</h2>
+      <p class="section-subtitle reveal" data-i18n-html="section.experiencesSubtitle">Selección curada de las mejores atracciones <span class="script-text">Best of Dubái</span></p>
+    </div>
+
+    <div class="container">
+
+      <div class="feature-banner reveal" data-tour="safari">
+        <img src="https://images.unsplash.com/photo-1451337516015-6b6e9a44a8a3?auto=format&fit=crop&w=1400&q=80" alt="Desert safari" class="feature-banner-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="feature-banner-fallback"><i class="fa-solid fa-truck-monster"></i></div>
+        <div class="feature-banner-overlay"></div>
+        <div class="feature-banner-content">
+          <h3 data-i18n="tours.safari.title">Safari por el Desierto</h3>
+          <p data-i18n="tours.safari.subtitle">Dune bashing en 4x4, quad y show beduino con cena BBQ</p>
+          <div class="feature-banner-meta">
+            <div class="price">75 USD <span data-i18n="suffix.pers">/persona</span></div>
+            <a href="javascript:void(0)" class="btn-banner" data-i18n="cta.book" onclick="openContactModal('tours.safari.title'); return false;">Reservar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-banner reveal" style="transition-delay:0.08s" data-tour="burj">
+        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1400&q=80" alt="Burj Khalifa" class="feature-banner-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="feature-banner-fallback"><i class="fa-solid fa-building"></i></div>
+        <div class="feature-banner-overlay"></div>
+        <div class="feature-banner-content">
+          <h3 data-i18n="tours.burj.title">Burj Khalifa - At the Top</h3>
+          <p data-i18n="tours.burj.subtitle">Acceso a los miradores del edificio más alto del mundo</p>
+          <div class="feature-banner-meta">
+            <div class="price">45 USD <span data-i18n="suffix.pers">/persona</span></div>
+            <a href="javascript:void(0)" class="btn-banner" data-i18n="cta.book" onclick="openContactModal('tours.burj.title'); return false;">Reservar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-banner reveal" style="transition-delay:0.16s" data-tour="heli">
+        <span class="card-badge" data-i18n="tours.heli.badge">POPULAR</span>
+        <img src="https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=1400&q=80" alt="Helicopter Tour" class="feature-banner-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="feature-banner-fallback"><i class="fa-solid fa-helicopter"></i></div>
+        <div class="feature-banner-overlay"></div>
+        <div class="feature-banner-content">
+          <h3 data-i18n="tours.heli.title">Vuelo en Helicóptero</h3>
+          <p data-i18n="tours.heli.subtitle">Sobrevuela Dubái como una estrella</p>
+          <div class="feature-banner-meta">
+            <div class="price">195 USD <span data-i18n="suffix.pers">/persona</span></div>
+            <a href="javascript:void(0)" class="btn-banner" data-i18n="cta.book" onclick="openContactModal('tours.heli.title'); return false;">Reservar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-banner reveal" style="transition-delay:0.24s" data-tour="yacht">
+        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1400&q=80" alt="Yacht cruise" class="feature-banner-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="feature-banner-fallback"><i class="fa-solid fa-ship"></i></div>
+        <div class="feature-banner-overlay"></div>
+        <div class="feature-banner-content">
+          <h3 data-i18n="tours.yacht.title">Crucero en Yate</h3>
+          <p data-i18n="tours.yacht.subtitle">Marina, JBR y Palm Jumeirah desde el mar</p>
+          <div class="feature-banner-meta">
+            <div class="price">150 USD <span data-i18n="suffix.pers">/persona</span></div>
+            <a href="javascript:void(0)" class="btn-banner" data-i18n="cta.book" onclick="openContactModal('tours.yacht.title'); return false;">Reservar</a>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="subsection-title reveal" data-i18n="section.moreTitle">Más experiencias</h3>
+      <p class="subsection-subtitle reveal" data-i18n="section.moreSubtitle">Todo lo demás que vale la pena reservar</p>
+    </div>
+
+    <div class="carousel-container">
+
+      <div class="card reveal" data-tour="abudhabi">
+        <img src="https://images.unsplash.com/photo-1591018741934-3ac33b8f8bfd?auto=format&fit=crop&w=600&q=80" alt="Abu Dhabi" class="card-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="card-img-fallback"><i class="fa-solid fa-mosque"></i></div>
+        <div class="card-body">
+          <h3 class="card-title" data-i18n="tours.abudhabi.title">Tour a Abu Dabi</h3>
+          <p class="card-subtitle" data-i18n="tours.abudhabi.subtitle">Mezquita Sheikh Zayed, Qasr Al Watan y Louvre Abu Dabi</p>
+          <div class="card-footer">
+            <div class="card-price">90 USD <span data-i18n="suffix.pers">/persona</span></div>
+            <a href="javascript:void(0)" class="btn-card" data-i18n="cta.book" onclick="openContactModal('tours.abudhabi.title'); return false;">Reservar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card reveal" data-tour="palm">
+        <img src="https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&w=600&q=80" alt="Palm Jumeirah" class="card-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="card-img-fallback"><i class="fa-solid fa-umbrella-beach"></i></div>
+        <div class="card-body">
+          <h3 class="card-title" data-i18n="tours.palm.title">Palm Jumeirah &amp; Atlantis</h3>
+          <p class="card-subtitle" data-i18n="tours.palm.subtitle">Mirador The View, Aquaventure y The Lost Chambers</p>
+          <div class="card-footer">
+            <div class="card-price">60 USD <span data-i18n="suffix.pers">/persona</span></div>
+            <a href="javascript:void(0)" class="btn-card" data-i18n="cta.book" onclick="openContactModal('tours.palm.title'); return false;">Reservar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card reveal" data-tour="car">
+        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80" alt="Luxury car rental" class="card-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="card-img-fallback"><i class="fa-solid fa-car-side"></i></div>
+        <div class="card-body">
+          <h3 class="card-title" data-i18n="tours.car.title">Renta de Auto de Lujo</h3>
+          <p class="card-subtitle" data-i18n="tours.car.subtitle">Lamborghini, Ferrari, Rolls-Royce o G-Wagon</p>
+          <div class="card-footer">
+            <div class="card-price" data-i18n="tours.car.priceLabel">Desde 350 USD <span data-i18n="suffix.day">/día</span></div>
+            <a href="javascript:void(0)" class="btn-card" data-i18n="cta.book" onclick="openContactModal('tours.car.title'); return false;">Reservar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card reveal" data-tour="skypool">
+        <span class="card-badge" data-i18n="tours.skypool.badge">VIP CLUB</span>
+        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=600&q=80" alt="Aura Skypool" class="card-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="card-img-fallback"><i class="fa-solid fa-water-ladder"></i></div>
+        <div class="card-body">
+          <h3 class="card-title" data-i18n="tours.skypool.title">Aura Skypool Dubái</h3>
+          <p class="card-subtitle" data-i18n="tours.skypool.subtitle">Piscina en la azotea, piso 50</p>
+          <div class="card-footer">
+            <div class="card-price">120 USD <span data-i18n="suffix.pers">/persona</span></div>
+            <a href="javascript:void(0)" class="btn-card" data-i18n="cta.book" onclick="openContactModal('tours.skypool.title'); return false;">Reservar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card reveal" data-tour="flying">
+        <span class="card-badge" data-i18n="tours.flying.badge">NUEVO</span>
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Flying dress photoshoot" class="card-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="card-img-fallback"><i class="fa-solid fa-camera-retro"></i></div>
+        <div class="card-body">
+          <h3 class="card-title" data-i18n="tours.flying.title">Photoshoot Flying Dress</h3>
+          <p class="card-subtitle" data-i18n="tours.flying.subtitle">Sesión de fotos memorable en el desierto</p>
+          <div class="card-footer">
+            <div class="card-price">872 USD <span data-i18n="suffix.session">/sesión</span></div>
+            <a href="javascript:void(0)" class="btn-card" data-i18n="cta.book" onclick="openContactModal('tours.flying.title'); return false;">Reservar</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="newyear-section" id="findeanio">
+    <div class="container">
+      <h2 class="section-title reveal" data-i18n="newyear.title">Destinos para tu Fin de Año 2027</h2>
+      <p class="section-subtitle reveal" data-i18n="newyear.subtitle">Tres destinos que estamos armando para recibir el año nuevo — cuéntanos cuál te late más.</p>
+
+      <div class="compare-grid">
+        <div class="compare-card reveal">
+          <div class="compare-img-wrap">
+            <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=600&q=80" alt="Dubái - Fin de Año" class="compare-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="compare-img-fallback"><i class="fa-solid fa-champagne-glasses"></i></div>
+            <span class="compare-badge" data-i18n="newyear.dubai.budget">Presupuesto medio-alto</span>
+          </div>
+          <div class="compare-card-body">
+            <h3 data-i18n="newyear.dubai.title">Dubái, Emiratos Árabes Unidos</h3>
+            <p class="compare-desc" data-i18n="newyear.dubai.desc">Fuegos artificiales desde el Burj Khalifa, azoteas de lujo y un clima ideal en diciembre.</p>
+            <ul class="compare-list" data-i18n-list="newyear.dubai.activities"></ul>
+            <button type="button" class="btn-compare" data-i18n="newyear.cta" onclick="openContactModal('newyear.dubai.title')">Consultar este destino</button>
+          </div>
+        </div>
+
+        <div class="compare-card reveal" style="transition-delay:0.1s">
+          <div class="compare-img-wrap">
+            <img src="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=600&q=80" alt="Lisboa - Fin de Año" class="compare-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="compare-img-fallback"><i class="fa-solid fa-champagne-glasses"></i></div>
+            <span class="compare-badge" data-i18n="newyear.lisbon.budget">Económico, buena relación calidad-precio</span>
+          </div>
+          <div class="compare-card-body">
+            <h3 data-i18n="newyear.lisbon.title">Lisboa, Portugal</h3>
+            <p class="compare-desc" data-i18n="newyear.lisbon.desc">Ambiente festivo en la Plaza del Comercio, con fuegos artificiales sobre el río Tajo.</p>
+            <ul class="compare-list" data-i18n-list="newyear.lisbon.activities"></ul>
+            <button type="button" class="btn-compare" data-i18n="newyear.cta" onclick="openContactModal('newyear.lisbon.title')">Consultar este destino</button>
+          </div>
+        </div>
+
+        <div class="compare-card reveal" style="transition-delay:0.2s">
+          <div class="compare-img-wrap">
+            <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=600&q=80" alt="Nueva York - Fin de Año" class="compare-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="compare-img-fallback"><i class="fa-solid fa-champagne-glasses"></i></div>
+            <span class="compare-badge" data-i18n="newyear.newyork.budget">Presupuesto alto</span>
+          </div>
+          <div class="compare-card-body">
+            <h3 data-i18n="newyear.newyork.title">Nueva York, Estados Unidos</h3>
+            <p class="compare-desc" data-i18n="newyear.newyork.desc">La bola de Times Square, fuegos artificiales en cuatro puntos de la ciudad y el árbol del Rockefeller Center. Habitaciones de hotel entre 180 y 400 € por noche en Manhattan durante estas fechas.</p>
+            <ul class="compare-list" data-i18n-list="newyear.newyork.activities"></ul>
+            <button type="button" class="btn-compare" data-i18n="newyear.cta" onclick="openContactModal('newyear.newyork.title')">Consultar este destino</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews-bg">
+    <div class="container">
+      <h2 class="section-title reveal" data-i18n="section.reviewsTitle">Opiniones de Viajeros</h2>
+      <p class="section-subtitle reveal" data-i18n="section.reviewsSubtitle">Lo que dicen nuestros clientes de sus experiencias AAL Travel</p>
+    </div>
+
+    <div class="carousel-container">
+      <div class="review-card reveal">
+        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+        <p class="review-text" data-i18n="review.sophie.text">"Increíble la atención personalizada. El acceso VIP al Aura Skypool y el transporte privado hicieron de nuestro viaje a Dubái algo inolvidable."</p>
+        <div class="reviewer">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="Sophie Laurent" class="reviewer-img" loading="lazy" onerror="this.style.background='var(--light-blue)'; this.removeAttribute('src');">
+          <div class="reviewer-info">
+            <h4>Sophie Laurent</h4>
+            <p><span data-i18n="review.traveledTo">Viajó a Dubái</span> - París, FR</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" style="transition-delay:0.1s">
+        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+        <p class="review-text" data-i18n="review.marc.text">"Armamos un paquete de Vuelo + Hotel + Paseo en Helicóptero. La gestión por WhatsApp fue rápida y nos ayudaron en todo momento."</p>
+        <div class="reviewer">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="Marc Dubois" class="reviewer-img" loading="lazy" onerror="this.style.background='var(--light-blue)'; this.removeAttribute('src');">
+          <div class="reviewer-info">
+            <h4>Marc Dubois</h4>
+            <p><span data-i18n="review.traveledTo">Viajó a Dubái</span> - Bruselas, BE</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section" id="contacto">
+    <h2 class="section-title reveal" data-i18n="contact.title">Diseña tu Viaje a la Medida</h2>
+    <p class="section-subtitle reveal" data-i18n="contact.subtitle">Déjanos tu solicitud y un concierge te contactará en minutos</p>
+
+    <form class="contact-form reveal" id="contactForm">
+      <div class="form-group">
+        <label for="f-name" data-i18n="contact.form.name">Nombre Completo</label>
+        <input type="text" id="f-name" data-i18n-placeholder="contact.form.namePlaceholder" placeholder="Ej. Anna Williams" required>
+      </div>
+      <div class="form-group">
+        <label for="f-contact" data-i18n="contact.form.contact">Correo Electrónico / Teléfono (WhatsApp)</label>
+        <input type="text" id="f-contact" placeholder="+33 6 00 00 00 00" required>
+      </div>
+      <div class="form-group">
+        <label for="f-service" data-i18n="contact.form.service">Servicio de Interés</label>
+        <select id="f-service">
+          <option data-i18n="contact.form.opt1">Paquete a la Medida (Vuelo + Hotel + Tours)</option>
+          <option data-i18n="contact.form.opt2">Reserva de Experiencia / Club VIP</option>
+          <option data-i18n="contact.form.opt3">Solo Hotel o Vuelo</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="f-details" data-i18n="contact.form.details">Detalles de tu viaje (Fechas, presupuesto, preferencias)</label>
+        <textarea id="f-details" rows="3" data-i18n-placeholder="contact.form.detailsPlaceholder" placeholder="Quiero viajar en Noviembre para 2 personas con acceso a restaurantes VIP..."></textarea>
+      </div>
+      <button type="submit" class="btn-submit" data-i18n="contact.form.submit">Solicitar Cotización Personalizada</button>
+      <div class="thanks-msg" id="thanksMsg" data-i18n="contact.form.thanks">¡Gracias! Nos pondremos en contacto contigo pronto.</div>
+    </form>
+  </section>
+
+  <!-- Contact choice modal: WhatsApp or phone call, pre-filled message in the current language -->
+  <div class="contact-modal-overlay" id="contactModalOverlay">
+    <div class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+      <button type="button" class="contact-modal-close" id="contactModalClose" aria-label="Cerrar">&times;</button>
+      <div class="contact-modal-icon"><i class="fa-solid fa-comments"></i></div>
+      <h3 id="contactModalTitle" data-i18n="modal.title">¿Cómo prefieres contactarnos?</h3>
+      <p id="contactModalItem" class="contact-modal-item"></p>
+      <div class="contact-modal-actions">
+        <a href="#" id="modalWhatsappBtn" class="modal-btn modal-btn-whatsapp" target="_blank" rel="noopener">
+          <i class="fa-brands fa-whatsapp"></i> <span data-i18n="modal.whatsapp">WhatsApp</span>
+        </a>
+        <a href="#" id="modalCallBtn" class="modal-btn modal-btn-call">
+          <i class="fa-solid fa-phone"></i> <span data-i18n="modal.call">Llamar ahora</span>
+        </a>
+      </div>
+      <button type="button" class="modal-form-link" id="modalFormLink" data-i18n="modal.formLink">O completa el formulario</button>
+    </div>
+  </div>
+
+  <button type="button" class="whatsapp-btn" aria-label="WhatsApp" onclick="openContactModal()">
+    <i class="fa-brands fa-whatsapp"></i>
+  </button>
+
+  <nav class="mobile-bottom-nav">
+    <button class="nav-item active" onclick="document.querySelector('.hero').scrollIntoView({behavior:'smooth'})">
+      <i class="fa-solid fa-compass"></i>
+      <span data-i18n="nav.explore">Explorar</span>
+    </button>
+    <button class="nav-item" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+      <i class="fa-solid fa-sliders"></i>
+      <span data-i18n="nav.custom">A la medida</span>
+    </button>
+    <button class="nav-item" onclick="openContactModal()">
+      <i class="fa-solid fa-headset"></i>
+      <span data-i18n="nav.support">Soporte</span>
+    </button>
+  </nav>
+
+  <footer>
+    <p><strong>AAL Travel</strong> - License: Ajman NuVentures Centre Free Zone</p>
+    <p>&copy; 2026 AAL Travel. <span data-i18n="footer.rights">Todos los derechos reservados.</span> | <a href="#" data-i18n="footer.terms">Términos y Condiciones</a> | <a href="#" data-i18n="footer.privacy">Política de Privacidad</a></p>
+  </footer>
+
+<script>
+const dict = {
+  es: {
+    hero:{ title:"Experiencias Exclusivas en Dubái", subtitle:"Viajes a la medida, hoteles luxury y acceso VIP",
+      tabs:{packages:"Paquetes",flights:"Vuelos",hotels:"Hoteles",experiences:"Experiencias"},
+      destinationPlaceholder:"¿A dónde quieres ir? (Ej. Dubái)",
+      pax:{one:"1 Pasajero",two:"2 Pasajeros",family:"Familia"},
+      searchBtn:"Buscar",
+      searchNote:"Te enviaremos disponibilidad y precios directo por WhatsApp o correo — sin cargos por consultar."
+    },
+    section:{ experiencesTitle:"Experiencias Exclusivas", moreTitle:"Más experiencias", moreSubtitle:"Todo lo demás que vale la pena reservar", reviewsTitle:"Opiniones de Viajeros", reviewsSubtitle:"Lo que dicen nuestros clientes de sus experiencias AAL Travel" },
+    tours:{
+      safari:{title:"Safari por el Desierto", subtitle:"Dune bashing en 4x4, quad y show beduino con cena BBQ"},
+      burj:{title:"Burj Khalifa - At the Top", subtitle:"Acceso a los miradores del edificio más alto del mundo"},
+      heli:{badge:"POPULAR", title:"Vuelo en Helicóptero", subtitle:"Sobrevuela Dubái como una estrella"},
+      abudhabi:{title:"Tour a Abu Dabi", subtitle:"Mezquita Sheikh Zayed, Qasr Al Watan y Louvre Abu Dabi"},
+      palm:{title:"Palm Jumeirah & Atlantis", subtitle:"Mirador The View, Aquaventure y The Lost Chambers"},
+      yacht:{title:"Crucero en Yate", subtitle:"Marina, JBR y Palm Jumeirah desde el mar"},
+      car:{title:"Renta de Auto de Lujo", subtitle:"Lamborghini, Ferrari, Rolls-Royce o G-Wagon", priceLabel:'Desde 350 USD <span>/día</span>'},
+      skypool:{badge:"VIP CLUB", title:"Aura Skypool Dubái", subtitle:"Piscina en la azotea, piso 50"},
+      flying:{badge:"NUEVO", title:"Photoshoot Flying Dress", subtitle:"Sesión de fotos memorable en el desierto"}
+    },
+    suffix:{pers:"/persona", day:"/día", session:"/sesión"},
+    cta:{book:"Reservar"},
+    review:{ traveledTo:"Viajó a Dubái",
+      sophie:{text:'"Increíble la atención personalizada. El acceso VIP al Aura Skypool y el transporte privado hicieron de nuestro viaje a Dubái algo inolvidable."'},
+      marc:{text:'"Armamos un paquete de Vuelo + Hotel + Paseo en Helicóptero. La gestión por WhatsApp fue rápida y nos ayudaron en todo momento."'}
+    },
+    contact:{ title:"Diseña tu Viaje a la Medida", subtitle:"Déjanos tu solicitud y un concierge te contactará en minutos",
+      form:{ name:"Nombre Completo", namePlaceholder:"Ej. Anna Williams", contact:"Correo Electrónico / Teléfono (WhatsApp)",
+        service:"Servicio de Interés", opt1:"Paquete a la Medida (Vuelo + Hotel + Tours)", opt2:"Reserva de Experiencia / Club VIP", opt3:"Solo Hotel o Vuelo",
+        details:"Detalles de tu viaje (Fechas, presupuesto, preferencias)", detailsPlaceholder:"Quiero viajar en Noviembre para 2 personas con acceso a restaurantes VIP...",
+        submit:"Solicitar Cotización Personalizada", thanks:"¡Gracias! Nos pondremos en contacto contigo pronto." }
+    },
+    nav:{explore:"Explorar", custom:"A la medida", support:"Soporte"},
+    footer:{rights:"Todos los derechos reservados.", terms:"Términos y Condiciones", privacy:"Política de Privacidad"},
+    modal:{ title:"¿Cómo prefieres contactarnos?", whatsapp:"WhatsApp", call:"Llamar ahora", formLink:"O completa el formulario", prefillPrefix:"Me interesa:" },
+    newyear:{
+      title:"Destinos para tu Fin de Año 2027",
+      subtitle:"Tres destinos que estamos armando para recibir el año nuevo — cuéntanos cuál te late más.",
+      cta:"Consultar este destino",
+      dubai:{ budget:"Presupuesto medio-alto", title:"Dubái, Emiratos Árabes Unidos", desc:"Fuegos artificiales desde el Burj Khalifa, azoteas de lujo y un clima ideal en diciembre.",
+        activities:["Show de fuegos artificiales de Fin de Año desde el Burj Khalifa","Fuegos artificiales en Atlantis The Palm y Atlantis The Royal","Fiestas en azoteas de lujo con vista al skyline","Cena en el desierto"] },
+      lisbon:{ budget:"Económico, buena relación calidad-precio", title:"Lisboa, Portugal", desc:"Ambiente festivo en la Plaza del Comercio, con fuegos artificiales sobre el río Tajo.",
+        activities:["Cuenta regresiva y fuegos artificiales en la Plaza del Comercio","Recorrido gastronómico por el Time Out Market","Bares en azoteas con vista al Tajo"] },
+      newyork:{ budget:"Presupuesto alto", title:"Nueva York, Estados Unidos", desc:"La bola de Times Square, fuegos artificiales en cuatro puntos de la ciudad y el árbol del Rockefeller Center. Habitaciones de hotel entre 180 y 400 € por noche en Manhattan durante estas fechas.",
+        activities:["Bola de Times Square","Fuegos artificiales en Central Park o el puerto","Árbol de Navidad y patinaje en el Rockefeller Center","Fiestas en azoteas"] }
+    }
+  },
+  en: {
+    hero:{ title:"Exclusive Experiences in Dubai", subtitle:"Tailor-made trips, luxury hotels and VIP access",
+      tabs:{packages:"Packages",flights:"Flights",hotels:"Hotels",experiences:"Experiences"},
+      destinationPlaceholder:"Where do you want to go? (e.g. Dubai)",
+      pax:{one:"1 Passenger",two:"2 Passengers",family:"Family"},
+      searchBtn:"Search",
+      searchNote:"We'll send availability and prices straight to WhatsApp or email — no charge to ask."
+    },
+    section:{ experiencesTitle:"Exclusive Experiences", moreTitle:"More Experiences", moreSubtitle:"Everything else worth booking", reviewsTitle:"What Travellers Say", reviewsSubtitle:"What our clients say about their AAL Travel experiences" },
+    tours:{
+      safari:{title:"Desert Safari", subtitle:"4x4 dune bashing, quad biking and a Bedouin show with BBQ dinner"},
+      burj:{title:"Burj Khalifa - At the Top", subtitle:"Access to the observation decks of the world's tallest building"},
+      heli:{badge:"POPULAR", title:"Helicopter Flight", subtitle:"Fly over Dubai like a star"},
+      abudhabi:{title:"Abu Dhabi Tour", subtitle:"Sheikh Zayed Mosque, Qasr Al Watan and the Louvre Abu Dhabi"},
+      palm:{title:"Palm Jumeirah & Atlantis", subtitle:"The View observation deck, Aquaventure and The Lost Chambers"},
+      yacht:{title:"Yacht Cruise", subtitle:"Marina, JBR and Palm Jumeirah, seen from the water"},
+      car:{title:"Luxury Car Rental", subtitle:"Lamborghini, Ferrari, Rolls-Royce or G-Wagon", priceLabel:'From 350 USD <span>/day</span>'},
+      skypool:{badge:"VIP CLUB", title:"Aura Skypool Dubai", subtitle:"Rooftop pool, 50th floor"},
+      flying:{badge:"NEW", title:"Flying Dress Photoshoot", subtitle:"A memorable photoshoot in the desert"}
+    },
+    suffix:{pers:"/person", day:"/day", session:"/session"},
+    cta:{book:"Book now"},
+    review:{ traveledTo:"Travelled to Dubai",
+      sophie:{text:'"The personal attention was incredible. VIP access to Aura Skypool and the private transport made our trip to Dubai unforgettable."'},
+      marc:{text:'"We put together a Flight + Hotel + Helicopter Tour package. WhatsApp support was fast and they helped us the whole way."'}
+    },
+    contact:{ title:"Design Your Tailor-Made Trip", subtitle:"Leave us your request and a concierge will contact you within minutes",
+      form:{ name:"Full Name", namePlaceholder:"e.g. Anna Williams", contact:"Email / Phone (WhatsApp)",
+        service:"Service of Interest", opt1:"Tailor-Made Package (Flight + Hotel + Tours)", opt2:"Experience Booking / VIP Club", opt3:"Hotel or Flight Only",
+        details:"Trip details (Dates, budget, preferences)", detailsPlaceholder:"I want to travel in November for 2 people with access to VIP restaurants...",
+        submit:"Request a Personalised Quote", thanks:"Thank you! We'll be in touch shortly." }
+    },
+    nav:{explore:"Explore", custom:"Tailor-made", support:"Support"},
+    footer:{rights:"All rights reserved.", terms:"Terms & Conditions", privacy:"Privacy Policy"},
+    modal:{ title:"How would you like to contact us?", whatsapp:"WhatsApp", call:"Call now", formLink:"Or fill out the form", prefillPrefix:"I'm interested in:" },
+    newyear:{
+      title:"New Year's Eve 2027 Destinations",
+      subtitle:"Three destinations we're putting together to ring in the new year — tell us which one calls to you.",
+      cta:"Ask about this destination",
+      dubai:{ budget:"Medium to high budget", title:"Dubai, United Arab Emirates", desc:"Fireworks from the Burj Khalifa, luxury rooftops and ideal December weather.",
+        activities:["New Year's Eve fireworks show from the Burj Khalifa","Fireworks at Atlantis The Palm and Atlantis The Royal","Luxury rooftop parties with skyline views","Desert dinner experience"] },
+      lisbon:{ budget:"Affordable, great value", title:"Lisbon, Portugal", desc:"Festive atmosphere at Praça do Comércio, with fireworks over the Tagus river.",
+        activities:["Countdown and fireworks at Praça do Comércio","Food tour through Time Out Market","Rooftop bars over the Tagus river"] },
+      newyork:{ budget:"High budget", title:"New York, United States", desc:"The Times Square ball drop, fireworks at four spots across the city and the Rockefeller Center tree. Hotel rooms in Manhattan average 180 to 400 EUR a night during this period.",
+        activities:["Times Square ball drop","Fireworks viewing at Central Park or the harbor","Rockefeller Center Christmas tree and ice skating","Rooftop bar parties"] }
+    }
+  },
+  fr: {
+    hero:{ title:"Expériences Exclusives à Dubaï", subtitle:"Voyages sur mesure, hôtels de luxe et accès VIP",
+      tabs:{packages:"Forfaits",flights:"Vols",hotels:"Hôtels",experiences:"Expériences"},
+      destinationPlaceholder:"Où voulez-vous aller ? (ex. Dubaï)",
+      pax:{one:"1 Passager",two:"2 Passagers",family:"Famille"},
+      searchBtn:"Rechercher",
+      searchNote:"Nous vous envoyons disponibilités et tarifs directement par WhatsApp ou e-mail — sans frais pour demander."
+    },
+    section:{ experiencesTitle:"Expériences Exclusives", moreTitle:"Plus d'expériences", moreSubtitle:"Tout ce qui mérite d'être réservé", reviewsTitle:"Avis des Voyageurs", reviewsSubtitle:"Ce que nos clients disent de leurs expériences AAL Travel" },
+    tours:{
+      safari:{title:"Safari dans le Désert", subtitle:"Dune bashing en 4x4, quad et spectacle bédouin avec dîner BBQ"},
+      burj:{title:"Burj Khalifa - At the Top", subtitle:"Accès aux observatoires du plus haut gratte-ciel du monde"},
+      heli:{badge:"POPULAIRE", title:"Vol en Hélicoptère", subtitle:"Survolez Dubaï comme une star"},
+      abudhabi:{title:"Excursion à Abou Dabi", subtitle:"Mosquée Cheikh Zayed, Qasr Al Watan et Louvre Abou Dabi"},
+      palm:{title:"Palm Jumeirah & Atlantis", subtitle:"Observatoire The View, Aquaventure et The Lost Chambers"},
+      yacht:{title:"Croisière en Yacht", subtitle:"Marina, JBR et Palm Jumeirah, vus depuis la mer"},
+      car:{title:"Location de Voiture de Luxe", subtitle:"Lamborghini, Ferrari, Rolls-Royce ou G-Wagon", priceLabel:'Dès 350 USD <span>/jour</span>'},
+      skypool:{badge:"VIP CLUB", title:"Aura Skypool Dubaï", subtitle:"Piscine sur le toit, 50e étage"},
+      flying:{badge:"NOUVEAU", title:"Séance Photo Flying Dress", subtitle:"Une séance photo mémorable dans le désert"}
+    },
+    suffix:{pers:"/personne", day:"/jour", session:"/séance"},
+    cta:{book:"Réserver"},
+    review:{ traveledTo:"A voyagé à Dubaï",
+      sophie:{text:"\"L'attention personnalisée était incroyable. L'accès VIP à l'Aura Skypool et le transport privé ont rendu notre voyage à Dubaï inoubliable.\""},
+      marc:{text:'"Nous avons composé un forfait Vol + Hôtel + Tour en Hélicoptère. Le support WhatsApp a été rapide et ils nous ont aidés du début à la fin."'}
+    },
+    contact:{ title:"Concevez votre Voyage sur Mesure", subtitle:"Laissez-nous votre demande, un concierge vous contactera en quelques minutes",
+      form:{ name:"Nom Complet", namePlaceholder:"ex. Anna Williams", contact:"E-mail / Téléphone (WhatsApp)",
+        service:"Service Souhaité", opt1:"Forfait sur Mesure (Vol + Hôtel + Tours)", opt2:"Réservation d'Expérience / Club VIP", opt3:"Hôtel ou Vol Seul",
+        details:"Détails du voyage (Dates, budget, préférences)", detailsPlaceholder:"Je souhaite voyager en novembre pour 2 personnes avec accès aux restaurants VIP...",
+        submit:"Demander un Devis Personnalisé", thanks:"Merci ! Nous vous contacterons très bientôt." }
+    },
+    nav:{explore:"Explorer", custom:"Sur mesure", support:"Assistance"},
+    footer:{rights:"Tous droits réservés.", terms:"Conditions Générales", privacy:"Politique de Confidentialité"},
+    modal:{ title:"Comment préférez-vous nous contacter ?", whatsapp:"WhatsApp", call:"Appeler maintenant", formLink:"Ou remplissez le formulaire", prefillPrefix:"Je suis intéressé(e) par :" },
+    newyear:{
+      title:"Destinations pour le Réveillon 2027",
+      subtitle:"Trois destinations que nous préparons pour célébrer le nouvel an — dites-nous laquelle vous inspire le plus.",
+      cta:"Se renseigner sur cette destination",
+      dubai:{ budget:"Budget moyen à élevé", title:"Dubaï, Émirats arabes unis", desc:"Feux d'artifice depuis le Burj Khalifa, rooftops de luxe et une météo idéale en décembre.",
+        activities:["Feu d'artifice du Nouvel An depuis le Burj Khalifa","Feux d'artifice à Atlantis The Palm et Atlantis The Royal","Soirées sur des rooftops de luxe avec vue sur la skyline","Dîner dans le désert"] },
+      lisbon:{ budget:"Abordable, excellent rapport qualité-prix", title:"Lisbonne, Portugal", desc:"Ambiance festive sur la Praça do Comércio, avec des feux d'artifice au-dessus du Tage.",
+        activities:["Compte à rebours et feux d'artifice sur la Praça do Comércio","Tour gastronomique au Time Out Market","Bars sur les toits avec vue sur le Tage"] },
+      newyork:{ budget:"Budget élevé", title:"New York, États-Unis", desc:"La descente de la boule à Times Square, des feux d'artifice à quatre endroits de la ville et le sapin du Rockefeller Center. Les chambres d'hôtel à Manhattan coûtent en moyenne entre 180 et 400 € la nuit durant cette période.",
+        activities:["Descente de la boule à Times Square","Feux d'artifice à Central Park ou dans le port","Sapin de Noël et patinoire au Rockefeller Center","Soirées sur les toits"] }
+    }
+  }
+};
+
+// Pre-filled WhatsApp message templates, in the language currently selected on the page
+const contactMessages = {
+  es: {
+    generic: "¡Hola! Vi la publicidad de AAL Travel y me gustaría recibir información sobre sus paquetes de viaje. ¿Podrían ayudarme?",
+    item: (name) => `¡Hola! Vi la publicidad de AAL Travel y me interesa un viaje a ${name}. ¿Podrían darme más información y precios?`
+  },
+  en: {
+    generic: "Hi! I saw AAL Travel's ad and I'd like more information about your travel packages. Could you help me?",
+    item: (name) => `Hi! I saw AAL Travel's ad and I'm interested in a trip to ${name}. Could you send me more information and pricing?`
+  },
+  fr: {
+    generic: "Bonjour ! J'ai vu la publicité d'AAL Travel et j'aimerais plus d'informations sur vos forfaits de voyage. Pourriez-vous m'aider ?",
+    item: (name) => `Bonjour ! J'ai vu la publicité d'AAL Travel et je suis intéressé(e) par un voyage à ${name}. Pourriez-vous m'envoyer plus d'informations et les tarifs ?`
+  }
+};
+
+// Same number used for both the WhatsApp link and the direct phone call
+const PHONE_NUMBER = "971501234567";
+
+function getPath(obj, path){ return path.split('.').reduce((o,k)=> (o && o[k] !== undefined) ? o[k] : null, obj); }
+
+let currentLang = 'es';
+let currentModalItemKey = null;
+
+function setLanguage(lang){
+  currentLang = lang;
+  const d = dict[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const val = getPath(d, el.getAttribute('data-i18n'));
+    if (val !== null) el.textContent = val;
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{
+    // preserves the inline script-text span while swapping the surrounding copy
+    const key = el.getAttribute('data-i18n-html');
+    const val = getPath(d, key);
+    if (val !== null) el.innerHTML = val + ' <span class="script-text">Best of Dubái</span>';
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    const val = getPath(d, el.getAttribute('data-i18n-placeholder'));
+    if (val !== null) el.setAttribute('placeholder', val);
+  });
+  document.querySelectorAll('[data-i18n-list]').forEach(el=>{
+    const arr = getPath(d, el.getAttribute('data-i18n-list'));
+    if (Array.isArray(arr)) {
+      el.innerHTML = arr.map(item => `<li><i class="fa-solid fa-check"></i>${item}</li>`).join('');
+    }
+  });
+  const carPrice = document.querySelector('[data-tour="car"] [data-i18n="tours.car.priceLabel"]');
+  if (carPrice) carPrice.innerHTML = getPath(d, 'tours.car.priceLabel');
+  document.documentElement.lang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b=>{
+    b.setAttribute('aria-pressed', b.getAttribute('data-lang') === lang ? 'true' : 'false');
+  });
+  // If the contact modal is open when the language changes, refresh its message
+  if (document.getElementById('contactModalOverlay').classList.contains('show')) {
+    openContactModal(currentModalItemKey);
+  }
+}
+
+function buildMessage(itemKey){
+  const msgs = contactMessages[currentLang];
+  if (!itemKey) return msgs.generic;
+  const name = getPath(dict[currentLang], itemKey);
+  return name ? msgs.item(name) : msgs.generic;
+}
+
+function openContactModal(itemKey){
+  currentModalItemKey = itemKey || null;
+  const message = buildMessage(itemKey);
+  const waLink = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`;
+  document.getElementById('modalWhatsappBtn').setAttribute('href', waLink);
+  document.getElementById('modalCallBtn').setAttribute('href', `tel:+${PHONE_NUMBER}`);
+
+  const itemName = itemKey ? getPath(dict[currentLang], itemKey) : '';
+  const itemLabelEl = document.getElementById('contactModalItem');
+  itemLabelEl.textContent = itemName || '';
+  itemLabelEl.style.display = itemName ? 'block' : 'none';
+
+  document.getElementById('contactModalOverlay').classList.add('show');
+}
+
+function closeContactModal(){
+  document.getElementById('contactModalOverlay').classList.remove('show');
+}
+
+document.getElementById('contactModalClose').addEventListener('click', closeContactModal);
+document.getElementById('contactModalOverlay').addEventListener('click', (e)=>{
+  if (e.target.id === 'contactModalOverlay') closeContactModal();
+});
+document.addEventListener('keydown', (e)=>{
+  if (e.key === 'Escape') closeContactModal();
+});
+document.getElementById('modalFormLink').addEventListener('click', ()=>{
+  closeContactModal();
+  if (currentModalItemKey) {
+    const prefix = getPath(dict[currentLang], 'modal.prefillPrefix') || '';
+    const name = getPath(dict[currentLang], currentModalItemKey);
+    document.getElementById('f-details').value = name ? `${prefix} ${name}` : '';
+  }
+  document.getElementById('contacto').scrollIntoView({behavior:'smooth'});
+  document.getElementById('f-name').focus({preventScroll:true});
+});
+
+document.querySelectorAll('.lang-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=> setLanguage(btn.getAttribute('data-lang')));
+});
+
+document.querySelectorAll('.tab-btn').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab-btn').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
+
+document.getElementById('searchBtn').addEventListener('click', ()=>{
+  const dest = document.getElementById('searchDestination').value;
+  const date = document.getElementById('searchDate').value;
+  const pax = document.getElementById('searchPax').value;
+  const details = document.getElementById('f-details');
+  if (dest || date) {
+    details.value = [dest, date, pax].filter(Boolean).join(' — ');
+  }
+  document.getElementById('contacto').scrollIntoView({behavior:'smooth'});
+  document.getElementById('f-name').focus({preventScroll:true});
+});
+
+document.getElementById('contactForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  document.getElementById('thanksMsg').classList.add('show');
+});
+
+// Scroll-triggered reveal animations
+const revealEls = document.querySelectorAll('.reveal');
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el=> io.observe(el));
+} else {
+  revealEls.forEach(el=> el.classList.add('in-view'));
+}
+
+setLanguage('es');
+</script>
+
+</body>
+</html>
