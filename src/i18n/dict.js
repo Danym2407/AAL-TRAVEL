@@ -4,7 +4,7 @@ export const dict = {
       title: "Experiencias Exclusivas en Dubái",
       subtitle: "Viajes a la medida, hoteles luxury y acceso VIP",
       tabs: { packages: "Paquetes", flights: "Vuelos", hotels: "Hoteles", experiences: "Experiencias" },
-      destinationPlaceholder: "¿A dónde quieres ir? (Ej. Dubái)",
+      destinationPlaceholder: "¿Qué experiencia buscas? (Ej. Safari, Burj Khalifa, Fin de Año...)",
       pax: { one: "1 Pasajero", two: "2 Pasajeros", family: "Familia" },
       searchBtn: "Buscar",
       searchNote: "Te enviaremos disponibilidad y precios directo por WhatsApp o correo — sin cargos por consultar.",
@@ -16,6 +16,7 @@ export const dict = {
       moreSubtitle: "Todo lo demás que vale la pena reservar",
       reviewsTitle: "Opiniones de Viajeros",
       reviewsSubtitle: "Lo que dicen nuestros clientes de sus experiencias AAL Travel",
+      reviewsDisclaimer: "Testimonios de ejemplo para esta maqueta — se reemplazarán por opiniones reales antes del lanzamiento.",
     },
     tours: {
       safari: { title: "Safari por el Desierto", subtitle: "Dune bashing en 4x4, quad y show beduino con cena BBQ" },
@@ -41,15 +42,22 @@ export const dict = {
       form: {
         name: "Nombre Completo",
         namePlaceholder: "Ej. Anna Williams",
-        contact: "Correo Electrónico / Teléfono (WhatsApp)",
+        email: "Correo Electrónico",
+        emailPlaceholder: "ana@ejemplo.com",
+        phone: "Teléfono (WhatsApp)",
+        phonePlaceholder: "+33 6 00 00 00 00",
         service: "Servicio de Interés",
-        opt1: "Paquete a la Medida (Vuelo + Hotel + Tours)",
-        opt2: "Reserva de Experiencia / Club VIP",
-        opt3: "Solo Hotel o Vuelo",
+        opt1: "Paquetes",
+        opt2: "Vuelos",
+        opt3: "Hoteles",
+        opt4: "Experiencias",
         details: "Detalles de tu viaje (Fechas, presupuesto, preferencias)",
         detailsPlaceholder: "Quiero viajar en Noviembre para 2 personas con acceso a restaurantes VIP...",
         submit: "Solicitar Cotización Personalizada",
-        thanks: "¡Gracias! Nos pondremos en contacto contigo pronto.",
+        thanks: "¡Listo! Abrimos WhatsApp con tus datos ya redactados — solo confirma el envío para que no se pierdan.",
+        waIntro: "Nueva solicitud de cotización desde la web:",
+        sendWhatsapp: "Enviar por WhatsApp",
+        sendSms: "Enviar por SMS",
       },
     },
     nav: { explore: "Explorar", custom: "A la medida", support: "Soporte" },
@@ -68,7 +76,7 @@ export const dict = {
       dubai: {
         budget: "Presupuesto medio-alto",
         title: "Dubái, Emiratos Árabes Unidos",
-        desc: "Fuegos artificiales desde el Burj Khalifa, azoteas de lujo y un clima ideal en diciembre.",
+        desc: "Fuegos artificiales, azoteas de lujo y clima ideal para recibir el año nuevo.",
         activities: [
           "Show de fuegos artificiales de Fin de Año desde el Burj Khalifa",
           "Fuegos artificiales en Atlantis The Palm y Atlantis The Royal",
@@ -79,7 +87,7 @@ export const dict = {
       lisbon: {
         budget: "Económico, buena relación calidad-precio",
         title: "Lisboa, Portugal",
-        desc: "Ambiente festivo en la Plaza del Comercio, con fuegos artificiales sobre el río Tajo.",
+        desc: "Ambiente festivo junto al río Tajo, con la mejor relación calidad-precio de los tres.",
         activities: [
           "Cuenta regresiva y fuegos artificiales en la Plaza del Comercio",
           "Recorrido gastronómico por el Time Out Market",
@@ -89,7 +97,7 @@ export const dict = {
       newyork: {
         budget: "Presupuesto alto",
         title: "Nueva York, Estados Unidos",
-        desc: "La bola de Times Square, fuegos artificiales en cuatro puntos de la ciudad y el árbol del Rockefeller Center. Habitaciones de hotel entre 180 y 400 € por noche en Manhattan durante estas fechas.",
+        desc: "La icónica bola de Times Square y el ambiente navideño de Manhattan, la opción de mayor presupuesto.",
         activities: [
           "Bola de Times Square",
           "Fuegos artificiales en Central Park o el puerto",
@@ -104,7 +112,7 @@ export const dict = {
       title: "Exclusive Experiences in Dubai",
       subtitle: "Tailor-made trips, luxury hotels and VIP access",
       tabs: { packages: "Packages", flights: "Flights", hotels: "Hotels", experiences: "Experiences" },
-      destinationPlaceholder: "Where do you want to go? (e.g. Dubai)",
+      destinationPlaceholder: "What experience are you after? (e.g. Safari, Burj Khalifa, New Year's Eve...)",
       pax: { one: "1 Passenger", two: "2 Passengers", family: "Family" },
       searchBtn: "Search",
       searchNote: "We'll send availability and prices straight to WhatsApp or email — no charge to ask.",
@@ -116,6 +124,7 @@ export const dict = {
       moreSubtitle: "Everything else worth booking",
       reviewsTitle: "What Travellers Say",
       reviewsSubtitle: "What our clients say about their AAL Travel experiences",
+      reviewsDisclaimer: "Sample testimonials for this mockup — will be replaced with real reviews before launch.",
     },
     tours: {
       safari: { title: "Desert Safari", subtitle: "4x4 dune bashing, quad biking and a Bedouin show with BBQ dinner" },
@@ -141,15 +150,22 @@ export const dict = {
       form: {
         name: "Full Name",
         namePlaceholder: "e.g. Anna Williams",
-        contact: "Email / Phone (WhatsApp)",
+        email: "Email Address",
+        emailPlaceholder: "anna@example.com",
+        phone: "Phone (WhatsApp)",
+        phonePlaceholder: "+1 555 000 0000",
         service: "Service of Interest",
-        opt1: "Tailor-Made Package (Flight + Hotel + Tours)",
-        opt2: "Experience Booking / VIP Club",
-        opt3: "Hotel or Flight Only",
+        opt1: "Packages",
+        opt2: "Flights",
+        opt3: "Hotels",
+        opt4: "Experiences",
         details: "Trip details (Dates, budget, preferences)",
         detailsPlaceholder: "I want to travel in November for 2 people with access to VIP restaurants...",
         submit: "Request a Personalised Quote",
-        thanks: "Thank you! We'll be in touch shortly.",
+        thanks: "Done! We opened WhatsApp with your details already written — just confirm sending it so nothing gets lost.",
+        waIntro: "New quote request from the website:",
+        sendWhatsapp: "Send via WhatsApp",
+        sendSms: "Send via SMS",
       },
     },
     nav: { explore: "Explore", custom: "Tailor-made", support: "Support" },
@@ -168,7 +184,7 @@ export const dict = {
       dubai: {
         budget: "Medium to high budget",
         title: "Dubai, United Arab Emirates",
-        desc: "Fireworks from the Burj Khalifa, luxury rooftops and ideal December weather.",
+        desc: "Fireworks, luxury rooftops and ideal weather to ring in the new year.",
         activities: [
           "New Year's Eve fireworks show from the Burj Khalifa",
           "Fireworks at Atlantis The Palm and Atlantis The Royal",
@@ -179,7 +195,7 @@ export const dict = {
       lisbon: {
         budget: "Affordable, great value",
         title: "Lisbon, Portugal",
-        desc: "Festive atmosphere at Praça do Comércio, with fireworks over the Tagus river.",
+        desc: "Festive atmosphere by the Tagus river, with the best value for money of the three.",
         activities: [
           "Countdown and fireworks at Praça do Comércio",
           "Food tour through Time Out Market",
@@ -189,7 +205,7 @@ export const dict = {
       newyork: {
         budget: "High budget",
         title: "New York, United States",
-        desc: "The Times Square ball drop, fireworks at four spots across the city and the Rockefeller Center tree. Hotel rooms in Manhattan average 180 to 400 EUR a night during this period.",
+        desc: "The iconic Times Square ball drop and Manhattan's holiday spirit — the highest-budget option.",
         activities: [
           "Times Square ball drop",
           "Fireworks viewing at Central Park or the harbor",
@@ -204,7 +220,7 @@ export const dict = {
       title: "Expériences Exclusives à Dubaï",
       subtitle: "Voyages sur mesure, hôtels de luxe et accès VIP",
       tabs: { packages: "Forfaits", flights: "Vols", hotels: "Hôtels", experiences: "Expériences" },
-      destinationPlaceholder: "Où voulez-vous aller ? (ex. Dubaï)",
+      destinationPlaceholder: "Quelle expérience recherchez-vous ? (ex. Safari, Burj Khalifa, Réveillon...)",
       pax: { one: "1 Passager", two: "2 Passagers", family: "Famille" },
       searchBtn: "Rechercher",
       searchNote: "Nous vous envoyons disponibilités et tarifs directement par WhatsApp ou e-mail — sans frais pour demander.",
@@ -216,6 +232,7 @@ export const dict = {
       moreSubtitle: "Tout ce qui mérite d'être réservé",
       reviewsTitle: "Avis des Voyageurs",
       reviewsSubtitle: "Ce que nos clients disent de leurs expériences AAL Travel",
+      reviewsDisclaimer: "Témoignages d'exemple pour cette maquette — seront remplacés par de vrais avis avant le lancement.",
     },
     tours: {
       safari: { title: "Safari dans le Désert", subtitle: "Dune bashing en 4x4, quad et spectacle bédouin avec dîner BBQ" },
@@ -241,15 +258,22 @@ export const dict = {
       form: {
         name: "Nom Complet",
         namePlaceholder: "ex. Anna Williams",
-        contact: "E-mail / Téléphone (WhatsApp)",
+        email: "Adresse E-mail",
+        emailPlaceholder: "anna@exemple.com",
+        phone: "Téléphone (WhatsApp)",
+        phonePlaceholder: "+33 6 00 00 00 00",
         service: "Service Souhaité",
-        opt1: "Forfait sur Mesure (Vol + Hôtel + Tours)",
-        opt2: "Réservation d'Expérience / Club VIP",
-        opt3: "Hôtel ou Vol Seul",
+        opt1: "Forfaits",
+        opt2: "Vols",
+        opt3: "Hôtels",
+        opt4: "Expériences",
         details: "Détails du voyage (Dates, budget, préférences)",
         detailsPlaceholder: "Je souhaite voyager en novembre pour 2 personnes avec accès aux restaurants VIP...",
         submit: "Demander un Devis Personnalisé",
-        thanks: "Merci ! Nous vous contacterons très bientôt.",
+        thanks: "C'est fait ! Nous avons ouvert WhatsApp avec vos informations déjà rédigées — confirmez simplement l'envoi pour qu'elles ne soient pas perdues.",
+        waIntro: "Nouvelle demande de devis depuis le site :",
+        sendWhatsapp: "Envoyer via WhatsApp",
+        sendSms: "Envoyer par SMS",
       },
     },
     nav: { explore: "Explorer", custom: "Sur mesure", support: "Assistance" },
@@ -268,7 +292,7 @@ export const dict = {
       dubai: {
         budget: "Budget moyen à élevé",
         title: "Dubaï, Émirats arabes unis",
-        desc: "Feux d'artifice depuis le Burj Khalifa, rooftops de luxe et une météo idéale en décembre.",
+        desc: "Feux d'artifice, rooftops de luxe et une météo idéale pour célébrer le nouvel an.",
         activities: [
           "Feu d'artifice du Nouvel An depuis le Burj Khalifa",
           "Feux d'artifice à Atlantis The Palm et Atlantis The Royal",
@@ -279,7 +303,7 @@ export const dict = {
       lisbon: {
         budget: "Abordable, excellent rapport qualité-prix",
         title: "Lisbonne, Portugal",
-        desc: "Ambiance festive sur la Praça do Comércio, avec des feux d'artifice au-dessus du Tage.",
+        desc: "Ambiance festive au bord du Tage, avec le meilleur rapport qualité-prix des trois.",
         activities: [
           "Compte à rebours et feux d'artifice sur la Praça do Comércio",
           "Tour gastronomique au Time Out Market",
@@ -289,7 +313,7 @@ export const dict = {
       newyork: {
         budget: "Budget élevé",
         title: "New York, États-Unis",
-        desc: "La descente de la boule à Times Square, des feux d'artifice à quatre endroits de la ville et le sapin du Rockefeller Center. Les chambres d'hôtel à Manhattan coûtent en moyenne entre 180 et 400 € la nuit durant cette période.",
+        desc: "La célèbre descente de la boule à Times Square et l'ambiance des fêtes à Manhattan — l'option au budget le plus élevé.",
         activities: [
           "Descente de la boule à Times Square",
           "Feux d'artifice à Central Park ou dans le port",
@@ -306,14 +330,41 @@ export const contactMessages = {
   es: {
     generic: "¡Hola! Vi la publicidad de AAL Travel y me gustaría recibir información sobre sus paquetes de viaje. ¿Podrían ayudarme?",
     item: (name) => `¡Hola! Vi la publicidad de AAL Travel y me interesa un viaje a ${name}. ¿Podrían darme más información y precios?`,
+    search: ({ query, date, pax }) =>
+      [
+        '¡Hola! Vi la publicidad de AAL Travel y quiero cotizar lo siguiente:',
+        query ? `Interés: ${query}` : null,
+        date ? `Fecha: ${date}` : null,
+        pax ? `Pasajeros: ${pax}` : null,
+      ]
+        .filter(Boolean)
+        .join('\n'),
   },
   en: {
     generic: "Hi! I saw AAL Travel's ad and I'd like more information about your travel packages. Could you help me?",
     item: (name) => `Hi! I saw AAL Travel's ad and I'm interested in a trip to ${name}. Could you send me more information and pricing?`,
+    search: ({ query, date, pax }) =>
+      [
+        "Hi! I saw AAL Travel's ad and I'd like a quote for:",
+        query ? `Interest: ${query}` : null,
+        date ? `Date: ${date}` : null,
+        pax ? `Passengers: ${pax}` : null,
+      ]
+        .filter(Boolean)
+        .join('\n'),
   },
   fr: {
     generic: "Bonjour ! J'ai vu la publicité d'AAL Travel et j'aimerais plus d'informations sur vos forfaits de voyage. Pourriez-vous m'aider ?",
     item: (name) => `Bonjour ! J'ai vu la publicité d'AAL Travel et je suis intéressé(e) par un voyage à ${name}. Pourriez-vous m'envoyer plus d'informations et les tarifs ?`,
+    search: ({ query, date, pax }) =>
+      [
+        "Bonjour ! J'ai vu la publicité d'AAL Travel et je souhaite un devis pour :",
+        query ? `Intérêt : ${query}` : null,
+        date ? `Date : ${date}` : null,
+        pax ? `Passagers : ${pax}` : null,
+      ]
+        .filter(Boolean)
+        .join('\n'),
   },
 };
 

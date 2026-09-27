@@ -15,12 +15,17 @@ export default function ReviewsSection() {
         <Reveal as="p" className="mb-2 text-center text-sm text-gray-600 sm:text-base">
           {t('section.reviewsSubtitle')}
         </Reveal>
+        <Reveal as="p" className="mb-2 text-center text-xs italic text-gray-500">
+          {t('section.reviewsDisclaimer')}
+        </Reveal>
       </div>
 
-      <div className="no-scrollbar mt-4 flex snap-x snap-proximity gap-5 overflow-x-auto px-4 pb-2 sm:px-6">
-        {reviews.map((review, i) => (
-          <ReviewCard key={review.id} review={review} delay={i * 0.1} />
-        ))}
+      <div className="mt-4 px-4 sm:px-6">
+        <div className="no-scrollbar mx-auto flex max-w-6xl snap-x snap-proximity gap-5 overflow-x-auto pb-2 sm:flex-wrap sm:justify-center sm:overflow-visible">
+          {reviews.map((review, i) => (
+            <ReviewCard key={review.id} review={review} delay={i * 0.1} />
+          ))}
+        </div>
       </div>
     </section>
   );

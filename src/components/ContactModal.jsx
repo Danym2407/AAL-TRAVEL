@@ -4,7 +4,7 @@ import { useContactModal } from '../context/ContactModalContext.jsx';
 
 export default function ContactModal() {
   const { t } = useLanguage();
-  const { isOpen, itemKey, itemName, closeModal, whatsappHref, callHref } = useContactModal();
+  const { isOpen, itemName, closeModal, whatsappHref, callHref } = useContactModal();
 
   useEffect(() => {
     const handleKey = (e) => {
@@ -16,7 +16,7 @@ export default function ContactModal() {
 
   const handleFormLink = () => {
     closeModal();
-    if (itemKey && itemName) {
+    if (itemName) {
       const details = document.getElementById('f-details');
       if (details) details.value = `${t('modal.prefillPrefix')} ${itemName}`;
     }

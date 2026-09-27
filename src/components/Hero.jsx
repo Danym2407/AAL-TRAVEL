@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useLanguage } from '../i18n/LanguageContext.jsx';
+import { useContactModal } from '../context/ContactModalContext.jsx';
+import { contactMessages } from '../i18n/dict.js';
 
 const TABS = [
   { id: 'packages', icon: 'fa-solid fa-layer-group', key: 'hero.tabs.packages' },
@@ -9,18 +11,16 @@ const TABS = [
 ];
 
 export default function Hero() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
+  const { openModalWithMessage } = useContactModal();
   const [activeTab, setActiveTab] = useState('packages');
-  const [destination, setDestination] = useState('');
+  const [query, setQuery] = useState('');
   const [date, setDate] = useState('');
+  const paxRef = useRef(null);
 
   const handleSearch = () => {
-    if (destination || date) {
-      const details = document.getElementById('f-details');
-      if (details) details.value = [destination, date].filter(Boolean).join(' — ');
-    }
-    document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' });
-    window.setTimeout(() => document.getElementById('f-name')?.focus({ preventScroll: true }), 400);
+    const message = contactMessages[lang].search({ query, date, pax: paxRef.current?.value });
+    openModalWithMessage(message, query || null);
   };
 
   return (
@@ -63,8 +63,8 @@ export default function Hero() {
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]">
             <input
               type="text"
-              value={destination}
-              onChange={(e) => setDestination(e.target.value)}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
               placeholder={t('hero.destinationPlaceholder')}
               className="w-full rounded-lg border border-white/40 bg-white/90 px-3 py-3 text-sm text-dark outline-none"
             />
@@ -74,7 +74,7 @@ export default function Hero() {
               onChange={(e) => setDate(e.target.value)}
               className="w-full rounded-lg border border-white/40 bg-white/90 px-3 py-3 text-sm text-dark outline-none"
             />
-            <select className="w-full rounded-lg border border-white/40 bg-white/90 px-3 py-3 text-sm text-dark outline-none">
+            <select ref={paxRef} className="w-full rounded-lg border border-white/40 bg-white/90 px-3 py-3 text-sm text-dark outline-none">
               <option>{t('hero.pax.one')}</option>
               <option>{t('hero.pax.two')}</option>
               <option>{t('hero.pax.family')}</option>

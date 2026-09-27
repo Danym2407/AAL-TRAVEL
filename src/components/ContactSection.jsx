@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useLanguage } from '../i18n/LanguageContext.jsx';
+import { PHONE_NUMBER } from '../i18n/dict.js';
 import Reveal from './Reveal.jsx';
 
 const inputClasses =
@@ -8,10 +9,41 @@ const inputClasses =
 export default function ContactSection() {
   const { t } = useLanguage();
   const [submitted, setSubmitted] = useState(false);
+  const [links, setLinks] = useState({ whatsapp: '', sms: '' });
+
+  const buildMessage = (form) => {
+    const name = form.elements['f-name'].value.trim();
+    const email = form.elements['f-email'].value.trim();
+    const phone = form.elements['f-phone'].value.trim();
+    const service = form.elements['f-service'].value;
+    const details = form.elements['f-details'].value.trim();
+
+    return [
+      t('contact.form.waIntro'),
+      `${t('contact.form.name')}: ${name}`,
+      `${t('contact.form.email')}: ${email}`,
+      `${t('contact.form.phone')}: ${phone}`,
+      `${t('contact.form.service')}: ${service}`,
+      details ? `${t('contact.form.details')}: ${details}` : null,
+    ]
+      .filter(Boolean)
+      .join('\n');
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const message = buildMessage(e.currentTarget);
+    const encoded = encodeURIComponent(message);
+    const whatsapp = `https://wa.me/${PHONE_NUMBER}?text=${encoded}`;
+    const sms = `sms:+${PHONE_NUMBER}?body=${encoded}`;
+
+    setLinks({ whatsapp, sms });
     setSubmitted(true);
+
+    // Open WhatsApp immediately with the message ready — this click is the user gesture,
+    // so the popup isn't blocked. The buttons below stay as a fallback so the data is
+    // never lost even if the tab gets closed or a popup blocker interferes.
+    window.open(whatsapp, '_blank', 'noopener');
   };
 
   return (
@@ -28,24 +60,33 @@ export default function ContactSection() {
           <label htmlFor="f-name" className="mb-1.5 block text-sm font-semibold text-gray-700">
             {t('contact.form.name')}
           </label>
-          <input id="f-name" type="text" required placeholder={t('contact.form.namePlaceholder')} className={inputClasses} />
+          <input id="f-name" name="f-name" type="text" required placeholder={t('contact.form.namePlaceholder')} className={inputClasses} />
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="f-contact" className="mb-1.5 block text-sm font-semibold text-gray-700">
-            {t('contact.form.contact')}
-          </label>
-          <input id="f-contact" type="text" required placeholder="+33 6 00 00 00 00" className={inputClasses} />
+        <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div>
+            <label htmlFor="f-email" className="mb-1.5 block text-sm font-semibold text-gray-700">
+              {t('contact.form.email')}
+            </label>
+            <input id="f-email" name="f-email" type="email" required placeholder={t('contact.form.emailPlaceholder')} className={inputClasses} />
+          </div>
+          <div>
+            <label htmlFor="f-phone" className="mb-1.5 block text-sm font-semibold text-gray-700">
+              {t('contact.form.phone')}
+            </label>
+            <input id="f-phone" name="f-phone" type="tel" required placeholder={t('contact.form.phonePlaceholder')} className={inputClasses} />
+          </div>
         </div>
 
         <div className="mb-4">
           <label htmlFor="f-service" className="mb-1.5 block text-sm font-semibold text-gray-700">
             {t('contact.form.service')}
           </label>
-          <select id="f-service" className={inputClasses}>
+          <select id="f-service" name="f-service" className={inputClasses}>
             <option>{t('contact.form.opt1')}</option>
             <option>{t('contact.form.opt2')}</option>
             <option>{t('contact.form.opt3')}</option>
+            <option>{t('contact.form.opt4')}</option>
           </select>
         </div>
 
@@ -53,7 +94,7 @@ export default function ContactSection() {
           <label htmlFor="f-details" className="mb-1.5 block text-sm font-semibold text-gray-700">
             {t('contact.form.details')}
           </label>
-          <textarea id="f-details" rows={3} placeholder={t('contact.form.detailsPlaceholder')} className={inputClasses} />
+          <textarea id="f-details" name="f-details" rows={3} placeholder={t('contact.form.detailsPlaceholder')} className={inputClasses} />
         </div>
 
         <button
@@ -65,7 +106,23 @@ export default function ContactSection() {
 
         {submitted && (
           <div className="animate-fade-in-up mt-3.5 rounded-lg bg-green-50 px-4 py-3 text-sm text-green-700">
-            {t('contact.form.thanks')}
+            <p className="mb-3">{t('contact.form.thanks')}</p>
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <a
+                href={links.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-[#25d366] py-2.5 text-sm font-bold text-white transition-transform hover:-translate-y-0.5"
+              >
+                <i className="fa-brands fa-whatsapp text-base"></i> {t('contact.form.sendWhatsapp')}
+              </a>
+              <a
+                href={links.sms}
+                className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-primary py-2.5 text-sm font-bold text-white transition-transform hover:-translate-y-0.5"
+              >
+                <i className="fa-solid fa-comment-sms text-base"></i> {t('contact.form.sendSms')}
+              </a>
+            </div>
           </div>
         )}
       </Reveal>
